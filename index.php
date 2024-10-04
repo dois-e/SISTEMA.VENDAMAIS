@@ -15,17 +15,17 @@
     <div class="painel">
       
         <h3>Login</h3>
-        <form>
+        <form action="acesso.php" method="post">
             <div class="form-group">
               <label>CPF</label>
               <i class="fa-solid fa-user"></i>
-              <input type="text" class="form-control"  placeholder="Seu CPF">
+              <input name="cpf" type="text" class="form-control"  placeholder="Seu CPF">
              
             </div>
             <div class="form-group">
               <labe>Senha</label>
               <i class="fa-solid fa-key"></i>
-              <input type="password" class="form-control" placeholder="Senha">
+              <input name="senha" type="password" class="form-control" placeholder="Senha">
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
             <button type="reset" class="btn btn-danger">limpar</button>
