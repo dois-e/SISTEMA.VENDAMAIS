@@ -8,4 +8,7 @@ let table = new DataTable("#tabela", {
 
     }
 });
+$(document).ready(function(){
+    $('.cpf').mask('000.000.000-00');
 
+});
