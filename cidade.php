@@ -2,22 +2,22 @@
 include "validacao.php";
 include "conexao.php";
 
-//destino do formulario para inserir por padão
-$destino = './usuario/inserir.php';
+//destino do formulario para inserir por padrão
+$destino = './cidade/inserir.php';
 
 //se IdAlt for diferente de vazio - se existir IdAlt
 if(!empty($_GET['idAlt'])){
 
   //guarda na variavel $id o valor da pessoa clicandono lapis da tabela
   $id = $_GET['idAlt'];
-   //busca o usuario do idAlt
-  $sql = "SELECT * FROM usuario where id='$id' ";
+   //busca o cidade do idAlt
+  $sql = "SELECT * FROM cidade where id='$id' ";
   //executa comando
   $dados= mysqli_query( $conexao,$sql);
   //variavel com nossos dados;
   $dadosAlt = mysqli_fetch_assoc($dados);
 
- $destino = './usuario/alterar.php';
+ $destino = './cidade/alterar.php';
 
 }
 ?>
@@ -70,20 +70,20 @@ if(!empty($_GET['idAlt'])){
                               
                             </div>
                             <div class="form-group">
-                              <label >nome</label>
+                              <label >nome da cidade</label>
 
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['nome'] : ''?> "name="nome" type="text" class="form-control"placeholder="seu nome" required>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['nome'] : ''?> "name="nome" type="text" class="form-control"placeholder="nome da cidade" required>
                               
                             </div>
                              
                             <div class="form-group">
-                              <label >cpf</label>
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['cpf'] : ''?> " name="cpf" type="text" class="form-control cpf" placeholder="Seu cpf" required>
+                              <label >cep</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['cep'] : ''?> " name="cep" type="text" class="form-control cep" placeholder="Seu cep" required>
                             </div>
 
                             <div class="form-group">
-                              <label >senha</label>
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['senha'] : ''?> " name="senha" type="password" class="form-control" placeholder="senha" required>
+                              <label >estado</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['estado'] : ''?> " name="estado" type="text" class="form-control" placeholder="estado" required>
                           </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                             <button type="reset" class="btn btn-danger">limpar</button>
@@ -93,22 +93,23 @@ if(!empty($_GET['idAlt'])){
                     
 
                     <div class="col-md card">
-                        <h3> Listagem </h3>
+                        <h3> cidade cadastradas</h3>
                      
                         <table class="table" id="tabela">
                             <thead>
                               <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Nome</th>
-                                <th scope="col">Cpf</th>
+                                <th scope="col">cep</th>
+                                <th scope="col">estado</th>
                                 <th scope="col">Opções</th>
                               </tr>
                             </thead>
                             <tbody>
 
                             <?php
-                             //sql para selecionar todos os usuarios
-                            $sql = "SELECT * FROM usuario ";
+                             //sql para selecionar todos os cidades
+                            $sql = "SELECT * FROM cidade ";
                             $resultado = mysqli_query($conexao, $sql);
                             //looping onde $coluna , vai representar dados do banco 
                             //a cada linha é uma registro diferemte
@@ -119,10 +120,11 @@ if(!empty($_GET['idAlt'])){
                               <tr>
                                 <th><?php echo $coluna["id"]?></th>
                                 <td><?php echo $coluna["nome"]?> </td>
-                                <td><?php echo $coluna["cpf"]?> </td>
+                                <td><?php echo $coluna["cep"]?> </td>
+                                <td><?php echo $coluna["estado"]?> </td>
                                 <td> 
-                                  <a href="principal.php?idAlt=<?= $coluna['id'] ?>"><i class="fa-solid fa-pen-to-square mr-3" style="color: #00ff11;"></i></i></i></a>
-                                  <a href="<?php echo './usuario/excluir.php?id='.$coluna['id']?>"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></i></a>
+                                  <a href="cidade.php?idAlt=<?= $coluna['id'] ?>"><i class="fa-solid fa-pen-to-square mr-3" style="color: #00ff11;"></i></i></i></a>
+                                  <a href="<?php echo './cidade/excluir.php?id='.$coluna['id']?>"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></i></a>
                               </td>
                               </tr>
                               <?php } ?>
