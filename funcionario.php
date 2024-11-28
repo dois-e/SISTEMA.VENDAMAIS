@@ -1,24 +1,25 @@
 
 <?php 
 include "validacao.php";
+use LDAP\Result;
 include "conexao.php";
 
 //destino do formulario para inserir por padão
-$destino = './usuario/inserir.php';
+$destino = './funcionario/inserir.php';
 
 //se IdAlt for diferente de vazio - se existir IdAlt
 if(!empty($_GET['idAlt'])){
 
   //guarda na variavel $id o valor da pessoa clicandono lapis da tabela
   $id = $_GET['idAlt'];
-   //busca o usuario do idAlt
-  $sql = "SELECT * FROM usuario where id='$id' ";
+   //busca o funcionario do idAlt
+  $sql = "SELECT * FROM funcionario where id='$id' ";
   //executa comando
   $dados= mysqli_query( $conexao,$sql);
   //variavel com nossos dados;
   $dadosAlt = mysqli_fetch_assoc($dados);
 
- $destino = './usuario/alterar.php';
+ $destino = './funcionario/alterar.php';
 
 }
 ?>
@@ -60,7 +61,7 @@ if(!empty($_GET['idAlt'])){
                 <div class="row">
 
                     <div class="col-md card">
-                        <h3> Cadastro de usuarios </h3>
+                        <h3> Cadastro  de funcionarios</h3>
 
                         <form action="<?=$destino?>" method="post"> 
 
@@ -83,9 +84,45 @@ if(!empty($_GET['idAlt'])){
                             </div>
 
                             <div class="form-group">
-                              <label >senha</label>
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['senha'] : ''?>" name="senha" type="password" class="form-control" placeholder="senha" required>
+                              <label >celular</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['celular'] : ''?>" name="celular" type="text" class="celular form-control" placeholder="celular" required>
                           </div>
+                          <div class="form-group">
+                              <label >endereço</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['endereco'] : ''?>" name="endereco" type="text" class="form-control" placeholder="endereço" required>
+                          </div>
+                          <div class="form-group">
+                              <label >numero</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['numero'] : ''?>" name="numero" type="text" class="form-control" placeholder="seu numero" required>
+                          </div>
+                          <div class="form-group">
+                              <label >bairro</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['bairro'] : ''?>" name="bairro" type="text" class="form-control" placeholder="bairro" required>
+                          </div>
+                          <div class="form-group">
+                              <label >email</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['email'] : ''?>" name="email" type="text" class="form-control" placeholder="seu email" required>
+                          </div>
+                          <div class="form-group">
+                              <label >cargo</label>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['cargo'] : ''?>" name="cargo" type="text" class="form-control" placeholder="cargo" required>
+                          </div>
+                          <div class="form-group">
+                          <label>cidade</label>
+                          <select name="cidade" class="form-control">
+                           <option value="<?php echo isset($dadosAlt) ? $dadosAlt['cidade']:''?>">
+                            <?php
+                            $sql = 'SELECT * FROM cidade';
+                            $dados = mysqli_query(mysql:$conexao,query:$sql);
+
+                            while($coluna = mysqli_fetch_assoc(result:$dados)){
+                              echo "<option value='".$coluna['id']."'>".$coluna['nome']."</option>";
+                            }
+                          ?>
+                          </option>
+                          </select>
+                          </div>
+
                             <button type="submit" class="btn btn-primary">Enviar</button>
                             <button type="reset" class="btn btn-danger">limpar</button>
                           </form>
@@ -108,8 +145,8 @@ if(!empty($_GET['idAlt'])){
                             <tbody>
 
                             <?php
-                             //sql para selecionar todos os usuarios
-                            $sql = "SELECT * FROM usuario ";
+                             //sql para selecionar todos os funcionarios
+                            $sql = "SELECT * FROM funcionario ";
                             $resultado = mysqli_query($conexao, $sql);
                             //looping onde $coluna , vai representar dados do banco 
                             //a cada linha é uma registro diferemte
@@ -122,8 +159,8 @@ if(!empty($_GET['idAlt'])){
                                 <td><?php echo $coluna["nome"]?> </td>
                                 <td><?php echo $coluna["cpf"]?> </td>
                                 <td> 
-                                  <a href="principal.php?idAlt=<?= $coluna['id'] ?>"><i class="fa-solid fa-pen-to-square mr-3" style="color: #00ff11;"></i></i></i></a>
-                                  <a href="<?php echo './usuario/excluir.php?id='.$coluna['id']?>"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></i></a>
+                                  <a href="funcionario.php?idAlt=<?= $coluna['id'] ?>"><i class="fa-solid fa-pen-to-square mr-3" style="color: #00ff11;"></i></i></i></a>
+                                  <a href="<?php echo './funcionario/excluir.php?id='.$coluna['id']?>"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></i></a>
                               </td>
                               </tr>
                               <?php } ?>

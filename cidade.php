@@ -59,31 +59,31 @@ if(!empty($_GET['idAlt'])){
                 <div class="row">
 
                     <div class="col-md card">
-                        <h3> Cadastro </h3>
+                        <h3> Cadastro de cidade</h3>
 
                         <form action="<?=$destino?>" method="post"> 
 
                         <div class="form-group">
                               <label >id</label>
 
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['id'] : ''?> "name="id" readonly type="text" class="form-control"placeholder="seu id">
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['id'] : ''?>"name="id" readonly type="text" class="form-control"placeholder="seu id">
                               
                             </div>
                             <div class="form-group">
                               <label >nome da cidade</label>
 
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['nome'] : ''?> "name="nome" type="text" class="form-control"placeholder="nome da cidade" required>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['nome'] : ''?>"name="nome" type="text" class="form-control"placeholder="nome da cidade" required>
                               
                             </div>
                              
                             <div class="form-group">
                               <label >cep</label>
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['cep'] : ''?> " name="cep" type="text" class="form-control cep" placeholder="Seu cep" required>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['cep'] : ''?>" name="cep" type="text" class="form-control cep" placeholder="Seu cep" required>
                             </div>
 
                             <div class="form-group">
                               <label >estado</label>
-                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['estado'] : ''?> " name="estado" type="text" class="form-control" placeholder="estado" required>
+                              <input value="<?php echo isset($dadosAlt) ? $dadosAlt['estado'] : ''?>" name="estado" type="text" class="form-control" placeholder="estado" required>
                           </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                             <button type="reset" class="btn btn-danger">limpar</button>
