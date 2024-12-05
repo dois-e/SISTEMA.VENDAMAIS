@@ -7,4 +7,5 @@
     <li> <a href="./funcionario.php" class="menu-item"> <i class="fa-solid fa-briefcase"></i>  Funcionario </a> </li>
     <li> <a href="./produto.php" class="menu-item"> <i class="fa-solid fa-box-open"></i>  Produto </a> </li>
     <li> <a href="./venda.php" class="menu-item">  <i class="fa-solid fa-cart-shopping"></i>  Venda </a> </li>
+    <li> <a href="./listaVenda.php" class="menu-item">  <i class="fa-solid fa-cart-shopping"></i>  lista Venda </a> </li>
 </ul> 
