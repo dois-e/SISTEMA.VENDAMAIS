@@ -1,3 +1,25 @@
+
+<?php
+
+include 'conexao.php';
+include 'validacao.php';
+
+//casojá exista um id de venda 
+if(!empty($_GET['idVenda'])){
+    $idVenda = $_GET['idVenda'];
+}else{
+    //criar uma nova venda
+    $conexao->query("INSERT INTO venda (data_venda) VALUES (NOW())");
+    //obter o id da nova venda
+    $idVenda = $conexao->insert_id;
+}
+
+include './venda/adicionarProduto.php';
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,17 +40,27 @@
         <h3>TELA DE VENDA</h3>
         <form action="" method="POST">
             <div class="row">
-                <div class="form-group col-md">
+                <div class="form-group col-md-6">
                     <label>Produto</label>
-                    <select class="form-control">
-                        <option>Mouse</option>
-                        <option>Teclado</option>
-                        <option>Fone</option>
+                    <select class="form-control" name="produto">
+                        <?php
+                             $resultado = $conexao->query("select id,nome,preco,estoque FROM produto");
+                             while($coluna = $resultado->fetch_assoc()){
+
+                                echo"<option value='{$coluna['id']}'>
+                                {$coluna['nome']} -
+                                Estoque: {$coluna['estoque']} -
+                                preco: {$coluna['preco']}
+                                <option>";
+
+                             }
+                             ?>
+                       
                     </select>
                 </div>
                     <div class="form-group col">
                         <label>Quantidade</label>
-                        <input type="number" required class="form-control"> 
+                        <input type="number" name="quantidade" required class="form-control"> 
                     </div>
                     <div class="col">
                         <button type="submit" class="btn btn-primary" style="margin-top: 32px;">
@@ -44,13 +76,22 @@
                           <th class="col-1">Opções</th>
                      </thead>
                      <tbody>
+                        <?php
+                             include './venda/atualizarTabela.php';
+                             $itensVenda->data_seek(offset: 0 );
+                             while($item = $itensVenda->fetch_assoc()){
+
+                             
+                             ?>
                         <tr>
-                            <td>Mouse</td>
-                            <td>2</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td> <a href=""></a><i class="fa-solid fa-trash"></i></td>
+                            <td><?php echo $item['nome'] ?> </td>
+                            <td><?php echo $item['quantidade'] ?> </td>
+                            <td><?php echo $item['valor'] ?> </td>
+                            <td><?php echo $item['quantidade'] * $item['valor']?> </td>
+                            <td> <a href=""> <i class="fa-solid fa-circle-minus" style="color:red"></i></a> </td>
+                          
                         </tr>
+                        <?php } ?>
                      </tbody>
 
                     </table>
@@ -79,12 +120,12 @@
             </div>
           <div class="form-group">
             <label>Quantidade Total</label>
-            <input type="text" class="form-control" value="2" readonly>
+            <input type="text" class="form-control" value="<?php echo $totalQuantidade ?>" readonly>
 
           </div> 
            <div class="form-group">
             <label>Valor Total</label>
-            <input type="text" class="form-control" value="40" readonly>
+            <input type="text" class="form-control" value="<?php echo $totalValor ?>" readonly>
 
           </div>
           <div class="form-group">
